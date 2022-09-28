@@ -1,7 +1,8 @@
 import getopt
 import sys
-from data_extractor.extractor import config as c, data_extractor as de
-from data_extractor.cloud_storage_utils import google_cloud_storage_utils as gcsu
+from extractor import config as c
+from extractor import data_extractor as de
+from cloud_storage_utils import google_cloud_storage_utils as gcsu
 import datetime
 
 if __name__ == '__main__':

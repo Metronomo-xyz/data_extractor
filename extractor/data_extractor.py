@@ -1,5 +1,5 @@
-from data_extractor.extractor import db_connection_utils as dbcu
-from data_extractor.cloud_storage_utils import google_cloud_storage_utils as gcsu
+from extractor import db_connection_utils as dbcu
+from cloud_storage_utils import google_cloud_storage_utils as gcsu
 import pandas as pd
 from datetime import timedelta
 from time import sleep
