@@ -1,6 +1,7 @@
 import getopt
 import sys
-from data_extractor.extractor import config as c, data_extractor as de, google_cloud_storage_utils as gcsu
+from data_extractor.extractor import config as c, data_extractor as de
+from data_extractor.cloud_storage_utils import google_cloud_storage_utils as gcsu
 import datetime
 
 if __name__ == '__main__':
@@ -8,11 +9,11 @@ if __name__ == '__main__':
     options = "atn:ls:r:b:"
     long_options = ["actions", "transactions", "network=", "local", "start_date=", "date_range=", "bucket="]
 
-    actions = c.GET_ACTIONS_DATA_DEFAUL
+    actions = c.GET_ACTIONS_DATA_DEFAULT
     transactions = c.GET_TRANSACTIONS_DATA_DEFAULT
     network = c.DEFAULT_NETWORK
     token_json_path = c.TOKEN_JSON_PATH
-    start_date = datetime.date.today() - datetime.timedelta(days=1) #datetime.datetime.strptime('24052010', "%d%m%Y").date()
+    start_date = datetime.date.today() - datetime.timedelta(days=1)
     dates_range = c.DEFAULT_DATE_RANGE
     bucket = c.DEFAULT_BUCKET_NAME
 
