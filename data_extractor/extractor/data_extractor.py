@@ -11,9 +11,6 @@ def create_pandas_table(sql_query, network_creds, db):
             return table
         except pd.errors.DatabaseError as e:
             db = dbcu.get_connection(network_creds)
-    table = pd.read_sql_query(sql_query, db)
-
-    return table
 
 def get_timebounded_query(query, start_time, end_time):
     query_ = query.replace("@start_time", start_time).replace("@end_time", end_time)
