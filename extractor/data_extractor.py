@@ -35,7 +35,7 @@ def extract_data(query, network_creds, start_time, dates_range, bucket, blob_pat
         new_blob_name = blob_path + \
             str(next_time).replace(" ", "_").replace(":", "_") + "_" + \
             str(curr_time).replace(" ", "_").replace(":", "_") + ".csv"
-        gcsu.write_data_to_blob(data, bucket, new_blob_name)
+        gcsu.write_dataframe_to_blob(data, bucket, new_blob_name)
 
         curr_time = next_time
         next_time = next_time + timedelta(hours=data_time_delta)
