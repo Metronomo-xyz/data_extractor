@@ -1,25 +1,24 @@
 import getopt
 import sys
-from data_combiner import config as c
+import data_combiner
+from google.cloud import storage
 
 if __name__ == '__main__':
     argv = sys.argv[1:]
-    options = "atlb:y:m:"
-    long_options = ["actions", "transactions", "local", "bucket=", "years=", "months="]
+    options = "atln:b:y:m:"
+    long_options = ["actions", "transactions", "local", "network=", "bucket=", "years=", "months="]
 
     entities = list()
-    years_list = c.DEFAULT_YEARS
-    months_list = c.DEFAULT_MONTHS
-    actions = c.COMBINE_ACTIONS_DATA_DEFAULT
-    transactions = c.COMBINE_TRANSACTIONS_DATA_DEFAULT
-    token_json_path = c.TOKEN_JSON_PATH
-    bucket = c.DEFAULT_BUCKET_NAME
+    years_list = data_combiner.config.DEFAULT_YEARS
+    months_list = data_combiner.config.DEFAULT_MONTHS
+    network = data_combiner.config.DEFAULT_NETWORK
+    actions = data_combiner.config.COMBINE_ACTIONS_DATA_DEFAULT
+    transactions = data_combiner.config.COMBINE_TRANSACTIONS_DATA_DEFAULT
+    token_json_path = data_combiner.config.TOKEN_JSON_PATH
+    bucket_name = data_combiner.config.DEFAULT_BUCKET_NAME
 
     try:
         opts, args = getopt.getopt(argv, options, long_options)
-
-        print(opts)
-        print(args)
 
         for opt, value in opts:
             if opt in ("-a", "--actions"):
@@ -29,34 +28,36 @@ if __name__ == '__main__':
                 entities.append("transactions")
 
             elif opt in ("-l", "--local"):
-                token_json_path = c.LOCAL_TOKEN_JSON_PATH
+                token_json_path = data_combiner.config.LOCAL_TOKEN_JSON_PATH
+
+            elif opt in ("-n", "--network"):
+                network = value
 
             elif opt in ("-b", "--bucket"):
-                bucket = value
+                bucket_name = value
 
             elif opt in ("-y", "--years"):
-                bucket = value
+                years_list = list(value.split(" "))
 
             elif opt in ("-m", "--months"):
-                bucket = value
+                months_list = list(value.split(" "))
 
     except getopt.GetoptError as e:
         print('Error while parsing command line arguments : ' + str(e))
 
     print("args handled")
 
-    sys.exit(0)
+#(entities, network, years_list, months_list, bucket, token_json_path, storage_client):
 
-    for entity in entities:
-        for year in years_list:
-            for month in months_list:
-                data = pd.DataFrame()
-                print("entity : " + str(entity) + " : year : " + str(year) + " : month : " + str(month))
-                blobs = list(filter(lambda f: ((f.split("-")[1] == month) & (f.split("-")[0].split("mainnet"+entities_files_parts[entity])[1] == str(year))), filter(lambda b: ('/'+entity+'/' in b) & ("mainnet/" in b), all_blobs)))
-                for b in blobs:
-                    print(b)
-                    d = pd.read_csv("gs://near-data/" + b, storage_options={"token": token_json_path})[eintities_fields[entity]]
-                    data = pd.concat([data, d])
+    storage_client = storage.Client.from_service_account_json(token_json_path)
+    bucket = storage_client.bucket(bucket_name)
 
-                new_blob_name = "monthly_data/"+str(entity)+"/"+str(year)+"/"+str(month)+".csv"
-                root_bucket.blob(new_blob_name).upload_from_string(data.to_csv(), 'text/csv')
+    data_combiner.combiner.combine_data(
+        entities,
+        network,
+        years_list,
+        months_list,
+        bucket,
+        token_json_path,
+        storage_client
+    )

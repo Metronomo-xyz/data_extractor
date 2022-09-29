@@ -4,6 +4,7 @@ import pandas as pd
 from datetime import timedelta
 from time import sleep
 
+
 def create_pandas_table(sql_query, network_creds, db):
     flag = 0
     while flag == 0:
@@ -13,9 +14,11 @@ def create_pandas_table(sql_query, network_creds, db):
         except pd.errors.DatabaseError as e:
             db = dbcu.get_connection(network_creds)
 
+
 def get_timebounded_query(query, start_time, end_time):
     query_ = query.replace("@start_time", start_time).replace("@end_time", end_time)
     return query_
+
 
 def extract_data(query, network_creds, start_time, dates_range, bucket, blob_path, data_time_delta=-1, query_sleep_time=5):
     curr_time = start_time
@@ -29,7 +32,9 @@ def extract_data(query, network_creds, start_time, dates_range, bucket, blob_pat
         query_ = get_timebounded_query(query, str(next_timestamp), str(curr_timestamp))
         db = dbcu.get_connection(network_creds)
         data = create_pandas_table(query_, network_creds, db)
-        new_blob_name = blob_path + str(next_time).replace(" ","_").replace(":", "_") + "_" + str(curr_time).replace(" ", "_").replace(":", "_") + ".csv"
+        new_blob_name = blob_path + \
+            str(next_time).replace(" ", "_").replace(":", "_") + "_" + \
+            str(curr_time).replace(" ", "_").replace(":", "_") + ".csv"
         gcsu.write_data_to_blob(data, bucket, new_blob_name)
 
         curr_time = next_time

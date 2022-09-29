@@ -1,6 +1,6 @@
 DEFAULT_MONTHS = list(["08"])
 DEFAULT_YEARS = list(["2022"])
-
+DEFAULT_NETWORK = "mainnet"
 COMBINE_ACTIONS_DATA_DEFAULT = False
 COMBINE_TRANSACTIONS_DATA_DEFAULT = False
 
@@ -18,14 +18,26 @@ ENTITIES = {
     }
 }
 
-BLOB_NAMES = {
+BLOB_PATHS = {
     "mainnet": {
-        "transactions" : "mainnet/hourly_data/transactions/",
-        "actions" : "mainnet/hourly_data/action_receipt_actions/"
+        "hourly": {
+            "transactions" : "mainnet/hourly_data/transactions/",
+            "actions" : "mainnet/hourly_data/action_receipt_actions/"
+        },
+        "monthly" : {
+            "transactions" : "mainnet/monthly_data/transactions/",
+            "actions" : "mainnet/monthly_data/action_receipt_actions/"
+        }
     },
     "testnet" : {
-        "transactions" : "testnet/hourly_data/transactions/",
-        "actions" : "testnet/hourly_data/action_receipt_actions/"
+        "hourly": {
+            "transactions": "testnet/hourly_data/transactions/",
+            "actions": "testnet/hourly_data/action_receipt_actions/"
+        },
+        "monthly": {
+            "transactions": "testnet/monthly_data/transactions/",
+            "actions": "testnet/monthly_data/action_receipt_actions/"
+        }
     }
 }
 
