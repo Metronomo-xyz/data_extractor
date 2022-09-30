@@ -12,8 +12,6 @@ if __name__ == '__main__':
     years_list = data_combiner.config.DEFAULT_YEARS
     months_list = data_combiner.config.DEFAULT_MONTHS
     network = data_combiner.config.DEFAULT_NETWORK
-    actions = data_combiner.config.COMBINE_ACTIONS_DATA_DEFAULT
-    transactions = data_combiner.config.COMBINE_TRANSACTIONS_DATA_DEFAULT
     token_json_path = data_combiner.config.TOKEN_JSON_PATH
     bucket_name = data_combiner.config.DEFAULT_BUCKET_NAME
 

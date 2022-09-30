@@ -1,6 +1,8 @@
 DEFAULT_MONTHS = list(["08"])
 DEFAULT_YEARS = list(["2022"])
 DEFAULT_NETWORK = "mainnet"
+COMBINE_ACTIONS_DATA_DEFAULT = False
+COMBINE_TRANSACTIONS_DATA_DEFAULT = False
 
 TOKEN_JSON_PATH = 'web3advertisement-b54340ad58ad.json'
 LOCAL_TOKEN_JSON_PATH = 'C:/Users/yaroslav/Documents/Web3MarketingPlatform/CodeTools/web3advertisement-b54340ad58ad.json'
@@ -38,5 +40,5 @@ BLOB_PATHS = {
         }
     }
 }
-
+DEFAULT_ACCESS_TRANSACTIONS_BLOB_NAME = "access_data/access_transactions.csv"
 DEFAULT_BUCKET_NAME = "near-data"

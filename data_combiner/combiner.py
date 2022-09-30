@@ -22,7 +22,6 @@ def combine_data(entities, network, years_list, months_list, bucket, token_json_
 
                 print("entity : " + str(entity) + " : year : " + str(year) + " : month : " + str(month))
 
-
                 blobs = filter_blobs_by_entity(all_blobs, network, entity)
                 blobs = filter_blobs_by_year_month(blobs, year, month)
 
