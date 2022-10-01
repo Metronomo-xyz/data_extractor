@@ -17,7 +17,7 @@ INDEXER_CREDENTIALS = {
     }
 }
 
-TOKEN_JSON_PATH = 'web3advertisement-b54340ad58ad.json'
+TOKEN_JSON_PATH = '../web3advertisement-b54340ad58ad.json'
 
 LOCAL_TOKEN_JSON_PATH = 'C:/Users/yaroslav/Documents/Web3MarketingPlatform/CodeTools/web3advertisement-b54340ad58ad.json'
 
