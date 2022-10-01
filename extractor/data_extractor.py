@@ -12,9 +12,7 @@ def create_pandas_table(sql_query, network_creds, db):
         try:
             table = pd.read_sql_query(sql_query, db)
             return table
-        except pd.errors.DatabaseError as e:
-            db = dbcu.get_connection(network_creds)
-        except psy.errors.SerializationFailure as e:
+        except Exception as e:
             db = dbcu.get_connection(network_creds)
 
 
