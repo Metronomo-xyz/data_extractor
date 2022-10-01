@@ -46,8 +46,6 @@ if __name__ == '__main__':
 
     print("args handled")
 
-#(entities, network, years_list, months_list, bucket, token_json_path, storage_client):
-
     storage_client = storage.Client.from_service_account_json(token_json_path)
     bucket = storage_client.bucket(bucket_name)
 
