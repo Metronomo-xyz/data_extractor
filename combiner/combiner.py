@@ -1,5 +1,5 @@
 from combiner import config as c
-import cloud_storage_utils as csu
+import google_cloud_storage_utils as csu
 import pandas as pd
 
 def filter_blobs_by_year_month(blob_list, year, month):
