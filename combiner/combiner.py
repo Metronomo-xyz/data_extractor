@@ -35,5 +35,5 @@ def combine_data(entities, network, years_list, months_list, bucket, token_json_
                     )
                     data = pd.concat([data, d])
 
-                new_blob_name = c.BLOB_PATHS[network]["monthly"][entity] + "/" + str(year) + "/" + str(month) + ".csv"
+                new_blob_name = c.BLOB_PATHS[network]["monthly"][entity] + str(year) + "/" + str(month) + ".csv"
                 bucket.blob(new_blob_name).upload_from_string(data.to_csv(), 'text/csv')
