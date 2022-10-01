@@ -1,9 +1,9 @@
-from data_combiner import config as c
+from combiner import config as c
 import cloud_storage_utils as csu
 import pandas as pd
 
 def filter_blobs_by_year_month(blob_list, year, month):
-    return list(filter(lambda b: ((b.split("-")[1] == month) & (f.split("-")[0]  == str(year))), blob_list))
+    return list(filter(lambda b: ((b.split("-")[1] == month) & (b.split("-")[0]  == str(year))), blob_list))
 
 def filter_blobs_by_entity(blob_list, network, entity):
     return list(filter(lambda b: (c.BLOB_PATHS[network][entity] in b), blob_list))

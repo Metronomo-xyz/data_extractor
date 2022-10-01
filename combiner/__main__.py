@@ -1,6 +1,7 @@
 import getopt
 import sys
-import data_combiner
+from combiner import config as c
+from combiner import combiner
 from google.cloud import storage
 
 if __name__ == '__main__':
@@ -9,11 +10,11 @@ if __name__ == '__main__':
     long_options = ["actions", "transactions", "local", "network=", "bucket=", "years=", "months="]
 
     entities = list()
-    years_list = data_combiner.config.DEFAULT_YEARS
-    months_list = data_combiner.config.DEFAULT_MONTHS
-    network = data_combiner.config.DEFAULT_NETWORK
-    token_json_path = data_combiner.config.TOKEN_JSON_PATH
-    bucket_name = data_combiner.config.DEFAULT_BUCKET_NAME
+    years_list = c.DEFAULT_YEARS
+    months_list = c.DEFAULT_MONTHS
+    network = c.DEFAULT_NETWORK
+    token_json_path = c.TOKEN_JSON_PATH
+    bucket_name = c.DEFAULT_BUCKET_NAME
 
     try:
         opts, args = getopt.getopt(argv, options, long_options)
@@ -26,7 +27,7 @@ if __name__ == '__main__':
                 entities.append("transactions")
 
             elif opt in ("-l", "--local"):
-                token_json_path = data_combiner.config.LOCAL_TOKEN_JSON_PATH
+                token_json_path = c.LOCAL_TOKEN_JSON_PATH
 
             elif opt in ("-n", "--network"):
                 network = value
@@ -50,7 +51,7 @@ if __name__ == '__main__':
     storage_client = storage.Client.from_service_account_json(token_json_path)
     bucket = storage_client.bucket(bucket_name)
 
-    data_combiner.combiner.combine_data(
+    combiner.combine_data(
         entities,
         network,
         years_list,
