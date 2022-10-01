@@ -6,7 +6,7 @@ def filter_blobs_by_year_month(blob_list, year, month):
     return list(filter(lambda b: ((b.split("-")[1] == month) & (b.split("-")[0]  == str(year))), blob_list))
 
 def filter_blobs_by_entity(blob_list, network, entity):
-    return list(filter(lambda b: (c.BLOB_PATHS[network][entity] in b), blob_list))
+    return list(filter(lambda b: (c.BLOB_PATHS[network]["hourly"][entity] in b), blob_list))
 
 def get_dataframe_from_blob(entity, bucket_name, blob_name, token_json_path):
     return pd.read_csv("gs://" + bucket_name + "/" +blob_name,
