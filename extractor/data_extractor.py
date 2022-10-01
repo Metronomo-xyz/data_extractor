@@ -3,6 +3,7 @@ from cloud_storage_utils import google_cloud_storage_utils as gcsu
 import pandas as pd
 from datetime import timedelta
 from time import sleep
+import psycopg2 as psy
 
 
 def create_pandas_table(sql_query, network_creds, db):
@@ -12,6 +13,8 @@ def create_pandas_table(sql_query, network_creds, db):
             table = pd.read_sql_query(sql_query, db)
             return table
         except pd.errors.DatabaseError as e:
+            db = dbcu.get_connection(network_creds)
+        except psy.errors.SerializationFailure as e:
             db = dbcu.get_connection(network_creds)
 
 
