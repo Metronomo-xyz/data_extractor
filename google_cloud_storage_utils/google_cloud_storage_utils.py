@@ -11,6 +11,11 @@ def get_blob_name(blob):
     return blob.name
 
 
+def get_blob_list(token_json_path, bucket):
+    storage_client = storage.Client.from_service_account_json(token_json_path)
+    return list(map(get_blob_name, list(storage_client.list_blobs(bucket))))
+
+
 def get_blob_list(storage_client, bucket):
     return list(map(get_blob_name, list(storage_client.list_blobs(bucket))))
 
