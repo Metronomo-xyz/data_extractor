@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Metronomo.iml" filepath="$PROJECT_DIR$/.idea/Metronomo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/data_exctractor.iml" filepath="$PROJECT_DIR$/.idea/data_exctractor.iml" />
     </modules>
   </component>
 </project>
