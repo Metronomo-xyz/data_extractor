@@ -1,5 +1,5 @@
 from access_matrix import config as c
-import google_cloud_storage_utils as csu
+from google_cloud_storage_utils import google_cloud_storage_utils as csu
 from access_matrix import access_matrix as am
 import sys
 import getopt

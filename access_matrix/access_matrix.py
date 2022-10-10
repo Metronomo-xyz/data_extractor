@@ -2,6 +2,7 @@ import json
 from access_matrix import config as c
 import pandas as pd
 import google_cloud_storage_utils as csu
+import sys
 
 
 def getArgsJSON(s):
@@ -19,8 +20,15 @@ def get_entites_data(entity, network, years_list, months_list, bucket, token_jso
         for month in months_list:
             print("month : " + str(month))
             bucket_name = bucket.name
-            blob_name = "gs://" + bucket_name + "/" + c.BLOB_PATHS[network]["monthly"][entity] + "/" + year + "/" + month + ".csv"
-            d = pd.read_csv(blob_name,storage_options={"token": token_json_path})[c.ENTITIES[entity]["fields"]]
+            blob_name = "gs://" + bucket_name + "/" + c.BLOB_PATHS[network]["monthly"][entity] + year + "/" + month + ".csv"
+            print(blob_name)
+            try:
+                d = pd.read_csv(blob_name, storage_options={"token": token_json_path})[c.ENTITIES[entity]["fields"]]
+                print(d.head())
+            except KeyError as e:
+                print("Nessesary fields not found in data")
+                print("Key Error : " + str(e))
+                sys.exit(1)
 
             if (entity == "action"):
                 d = d[d.args.apply(lambda x: "\'permission_kind\': \'FUNCTION_CALL\'" in x)]
