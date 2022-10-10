@@ -1,6 +1,7 @@
 from combiner import config as c
 from google_cloud_storage_utils import google_cloud_storage_utils as csu
 import pandas as pd
+from http.client import RemoteDisconnected
 
 def filter_blobs_by_year_month(blob_list, year, month):
     return list(filter(lambda b: ((b.split("-")[1] == month) & (b.split("-")[0][-4:]  == str(year))), blob_list))
@@ -14,6 +15,7 @@ def get_dataframe_from_blob(entity, bucket_name, blob_name, token_json_path):
 
 def combine_data(entities, network, years_list, months_list, bucket, token_json_path, storage_client):
     print("getting all blobs list")
+    bucket_name = bucket.name
     all_blobs = csu.get_blob_list(storage_client, bucket)
     print("blobs num : " + str(len(all_blobs)))
 
@@ -38,6 +40,11 @@ def combine_data(entities, network, years_list, months_list, bucket, token_json_
                         token_json_path
                     )
                     data = pd.concat([data, d])
-
                 new_blob_name = c.BLOB_PATHS[network]["monthly"][entity] + str(year) + "/" + str(month) + ".csv"
-                bucket.blob(new_blob_name).upload_from_string(data.to_csv(), 'text/csv')
+                flag = 0
+                while flag == 0:
+                    try:
+                        bucket.blob(new_blob_name).upload_from_string(data.to_csv(), 'text/csv')
+                        return True
+                    except RemoteDisconnected as e:
+                        bucket = csu.get_bucket(token_json_path, bucket_name)
