@@ -7,7 +7,7 @@
 - Milestone 3 - Implement the users' similarity module and the users' activity module
 
 
-### Milestone 1 — Implement power-users search module
+### Milestone 1 - Implement power-users search module
 We will create a module that will search for power users of a smart contract, given the indexed blockchain data in described format.  
 
 
