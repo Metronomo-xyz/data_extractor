@@ -75,6 +75,7 @@ if __name__ == '__main__':
         )
 
     if (actions == True):
+        print("getting ara")
         de.extract_data(
             query = c.QUERY_ACTIONS,
             network_creds = creds,

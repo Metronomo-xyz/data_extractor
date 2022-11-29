@@ -1,19 +1,17 @@
 DEFAULT_MONTHS = list(["08"])
 DEFAULT_YEARS = list(["2022"])
 DEFAULT_NETWORK = "mainnet"
-COMBINE_ACTIONS_DATA_DEFAULT = False
-COMBINE_TRANSACTIONS_DATA_DEFAULT = False
 
-TOKEN_JSON_PATH = 'web3advertisement-b54340ad58ad.json'
+TOKEN_JSON_PATH = '../web3advertisement-b54340ad58ad.json'
 LOCAL_TOKEN_JSON_PATH = 'C:/Users/yaroslav/Documents/Web3MarketingPlatform/CodeTools/web3advertisement-b54340ad58ad.json'
 
 ENTITIES = {
     "transactions" : {
-        "fields": ["signer_account_id", "receiver_account_id", "converted_into_receipt_id", "block_timestamp"],
+        "fields": ["signer_account_id", "receiver_account_id", "converted_into_receipt_id"],
         "files_part" : "transactions"
     },
     "actions" : {
-        "fields": ["receipt_id", "action_kind", "args"],
+        "fields": ["receipt_id", "action_kind"],
         "files_part" : "actionreceiptactions"
     }
 }
@@ -27,6 +25,10 @@ BLOB_PATHS = {
         "monthly" : {
             "transactions" : "mainnet/monthly_data/transactions/",
             "actions" : "mainnet/monthly_data/action_receipt_actions/"
+        },
+        "daily" : {
+            "transactions" : "mainnet/daily_data/transactions/",
+            "actions" : "mainnet/daily_data/action_receipt_actions/"
         }
     },
     "testnet" : {
@@ -40,7 +42,5 @@ BLOB_PATHS = {
         }
     }
 }
-DEFAULT_ACCESS_TRANSACTIONS_BLOB_NAME = "access_data/access_transactions.csv"
-DEFAULT_BUCKET_NAME = "near-data"
 
-ACCESS_MATRIX_BLOB_PATH = "access_data/access_matrix/"
+DEFAULT_BUCKET_NAME = "near-data"

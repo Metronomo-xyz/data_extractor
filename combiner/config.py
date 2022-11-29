@@ -7,11 +7,11 @@ LOCAL_TOKEN_JSON_PATH = 'C:/Users/yaroslav/Documents/Web3MarketingPlatform/CodeT
 
 ENTITIES = {
     "transactions" : {
-        "fields": ["signer_account_id", "receiver_account_id", "converted_into_receipt_id", "block_timestamp"],
+        "fields": ["signer_account_id", "receiver_account_id", "converted_into_receipt_id"],
         "files_part" : "transactions"
     },
     "actions" : {
-        "fields": ["receipt_id", "action_kind", "args"],
+        "fields": ["receipt_id", "action_kind"],
         "files_part" : "actionreceiptactions"
     }
 }
@@ -25,6 +25,10 @@ BLOB_PATHS = {
         "monthly" : {
             "transactions" : "mainnet/monthly_data/transactions/",
             "actions" : "mainnet/monthly_data/action_receipt_actions/"
+        },
+        "daily": {
+            "transactions": "mainnet/daily_data/transactions/",
+            "actions": "mainnet/daily_data/action_receipt_actions/"
         }
     },
     "testnet" : {
