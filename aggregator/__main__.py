@@ -1,15 +1,14 @@
 import getopt
 import sys
 from aggregator import config as c
-from aggregator import aggregator
+from aggregator import aggregator as agg
 from google.cloud import storage
-#import datetime
 from datetime import datetime, timedelta
 
 if __name__ == '__main__':
     argv = sys.argv[1:]
-    options = "atln:b:s:r:"
-    long_options = ["actions", "transactions", "local", "network=", "bucket=", "start-date=", "range-dates="]
+    options = "ateln:b:s:r:"
+    long_options = ["actions", "transactions", "extended-data", "local","network=", "bucket=", "start-date=", "range-dates="]
 
     entities = list()
     years_list = c.DEFAULT_YEARS
@@ -19,6 +18,7 @@ if __name__ == '__main__':
     bucket_name = c.DEFAULT_BUCKET_NAME
     start_date = datetime.today() - timedelta(days=1)
     dates_range = 1
+    extended_data = False
 
     try:
         opts, args = getopt.getopt(argv, options, long_options)
@@ -29,6 +29,10 @@ if __name__ == '__main__':
 
             elif opt in ("-t", "--transactions"):
                 entities.append("transactions")
+
+
+            elif opt in ("-e", "--extended-data"):
+                extended_data = True
 
             elif opt in ("-l", "--local"):
                 token_json_path = c.LOCAL_TOKEN_JSON_PATH
@@ -56,4 +60,4 @@ if __name__ == '__main__':
     storage_client = storage.Client.from_service_account_json(token_json_path)
     bucket = storage_client.bucket(bucket_name)
 
-    aggregator.aggregate_daily(storage_client, bucket, network, dates, token_json_path)
+    agg.aggregate_daily(entities, storage_client, bucket, network, dates, token_json_path, extended_data)
