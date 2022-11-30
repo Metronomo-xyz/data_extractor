@@ -14,7 +14,7 @@ if __name__ == '__main__':
     transactions = c.GET_TRANSACTIONS_DATA_DEFAULT
     network = c.DEFAULT_NETWORK
     token_json_path = c.TOKEN_JSON_PATH
-    start_date = datetime.date.today() - datetime.timedelta(days=1)
+    start_date = datetime.datetime.strptime(str(datetime.date.today()), "%Y-%m-%d")
     dates_range = c.DEFAULT_DATE_RANGE
     bucket = c.DEFAULT_BUCKET_NAME
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
             elif opt in ("-s", "--start_date"):
                 try:
-                    start_date = datetime.datetime.strptime(value, "%d%m%Y").date()
+                    start_date = datetime.datetime.strptime(value, "%d%m%Y")
                 except ValueError as e:
                     print("ERROR OCCURED: --start_date must be in %d%m%Y format, but " + value + " was given")
                     sys.exit(1)
