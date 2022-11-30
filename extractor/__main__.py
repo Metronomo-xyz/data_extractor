@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
             elif opt in ("-s", "--start_date"):
                 try:
-                    start_date = datetime.datetime.strptime(value, "%d%m%Y")
+                    start_date = datetime.datetime.strptime(value, "%d%m%Y").date()
                 except ValueError as e:
                     print("ERROR OCCURED: --start_date must be in %d%m%Y format, but " + value + " was given")
                     sys.exit(1)
