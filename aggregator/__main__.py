@@ -44,7 +44,7 @@ if __name__ == '__main__':
                 bucket_name = value
 
             elif opt in ("-s", "--start-date"):
-                start_date = value
+                start_date = datetime.strptime(value, "%d%m%Y").date()
 
             elif opt in ("-r", "--range-dates"):
                 dates_range = int(value)
