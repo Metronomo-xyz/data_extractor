@@ -10,7 +10,6 @@ if __name__ == '__main__':
     options = "atln:b:s:r:"
     long_options = ["actions", "transactions", "local", "network=", "bucket=", "start_date=", "date_range="]
 
-    entities = list()
     years_list = c.DEFAULT_YEARS
     months_list = c.DEFAULT_MONTHS
     network = c.DEFAULT_NETWORK
@@ -23,13 +22,7 @@ if __name__ == '__main__':
         opts, args = getopt.getopt(argv, options, long_options)
 
         for opt, value in opts:
-            if opt in ("-a", "--actions"):
-                entities.append("actions")
-
-            elif opt in ("-t", "--transactions"):
-                entities.append("transactions")
-
-            elif opt in ("-l", "--local"):
+            if opt in ("-l", "--local"):
                 token_json_path = c.LOCAL_TOKEN_JSON_PATH
 
             elif opt in ("-n", "--network"):
@@ -65,7 +58,6 @@ if __name__ == '__main__':
     print("dates : " + str(dates))
 
     combiner.combine_data(
-        entities,
         network,
         dates,
         bucket,

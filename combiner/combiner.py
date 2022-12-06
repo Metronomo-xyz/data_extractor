@@ -8,17 +8,17 @@ import sys
 from google.oauth2 import service_account
 
 
-def combine_data(entities, network, dates, bucket, token_json_path, storage_client, how="daily"):
+def combine_data(network, dates, bucket, token_json_path, storage_client, how="daily"):
     bucket_name = bucket.name
     all_blobs = csu.get_blob_list(storage_client, bucket)
 
-    ara_blobs = csu.filter_blobs_by_entity(all_blobs, network, "actions", how)
+    ara_blobs = csu.filter_blobs_by_path(all_blobs, c.BLOB_PATHS[network][how]["actions"])
 
 
     ara_blobs = csu.filter_blobs_by_dates(ara_blobs, dates)
     print(ara_blobs)
 
-    tx_blobs = csu.filter_blobs_by_entity(all_blobs, network, "transactions", how)
+    tx_blobs = csu.filter_blobs_by_path(all_blobs, c.BLOB_PATHS[network][how]["transactions"])
     tx_blobs = csu.filter_blobs_by_dates(tx_blobs, dates)
     print(tx_blobs)
 
@@ -26,9 +26,9 @@ def combine_data(entities, network, dates, bucket, token_json_path, storage_clie
     for tx_b in tx_blobs:
         print(tx_b)
         tx_data = csu.get_dataframe_from_blob(
-            "transactions",
-            bucket.name,
+            bucket,
             tx_b,
+            c.ENTITIES["transactions"]["fields"],
             token_json_path
         )
         tx_data = tx_data[["signer_account_id", "receiver_account_id", "converted_into_receipt_id"]]
@@ -39,9 +39,9 @@ def combine_data(entities, network, dates, bucket, token_json_path, storage_clie
     for ara_b in ara_blobs:
         print(ara_b)
         ara_data = csu.get_dataframe_from_blob(
-            "actions",
-            bucket.name,
+            bucket,
             ara_b,
+            c.ENTITIES["actions"]["fields"],
             token_json_path
         )
         ara_data = ara_data[ara_data["action_kind"] == "FUNCTION_CALL"]
@@ -87,7 +87,7 @@ def combine_data(entities, network, dates, bucket, token_json_path, storage_clie
     print("j size : " + str(sys.getsizeof(j) / 1024 / 1024 / 1024))
 
     project_name = 'web3advertisement'
-    dataset_name = 'bot_data'
+    dataset_name = 'test_data'
     credentials = service_account.Credentials.from_service_account_file('../web3advertisement-94ba21675884.json')
 
     table_name = 'project_users'
