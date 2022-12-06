@@ -87,7 +87,7 @@ def combine_data(network, dates, bucket, token_json_path, storage_client, how="d
     print("j size : " + str(sys.getsizeof(j) / 1024 / 1024 / 1024))
 
     project_name = 'web3advertisement'
-    dataset_name = 'test_data'
+    dataset_name = 'bot_data'
     credentials = service_account.Credentials.from_service_account_file('../web3advertisement-94ba21675884.json')
 
     table_name = 'project_users'
