@@ -1,7 +1,7 @@
 import getopt
 import sys
 from extractor import config as c
-from extractor import data_extractor as de
+from extractor import extractor as de
 from google_cloud_storage_utils import google_cloud_storage_utils as gcsu
 import datetime
 
